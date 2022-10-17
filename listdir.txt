@@ -1,0 +1,12 @@
+Files: 
+    11111.py
+    22222.py
+    bank account.py
+    buys.txt
+    listdir.txt
+    traffic_money.json
+Directory: 
+    .idea
+    Programms
+    venv
+    __pycache__
