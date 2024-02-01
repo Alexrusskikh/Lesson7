@@ -1,7 +1,7 @@
 import os
 import shutil
 from Programms.use_functions import separator
-
+from Programms.use_functions import my_money
 
 def add_separators(f):
     def inner(*args, **kwargs):
@@ -141,7 +141,7 @@ def console_menu():
             from Programms import victory
 
         elif choice == '11':
-            from Programms import use_functions
+            my_money()
 
         elif choice == '12':
             print('Текущая папка: ', os.getcwd())
