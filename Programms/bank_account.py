@@ -4,38 +4,34 @@ import json
 import os
 
 # переменные для текущих данных
-traffic_money = []  # общий список????
+traffic_money = []  # общий список
 
-#put_money = []#поступление денег, кортеж из даты и суммы
-#withdrawal_money = []#снятие средств
-# balance_only = [] # сумма поступлений минус сумма снятий
-buys_only = []# только покупки,  кортежи  из  дат, названий, сумм
 
-# открытие файлов на чтение
-# if os.path.exists('../traffic_money.json'):  # проверка наличия файла
-#     with open('../traffic_money.json',
-#               'r') as file_read:  # файл всех танзакций открывается на чтение и передает данные в traffic_money
-#         traffic_money = json.load(file_read)
-#         # print(*traffic_money, sep="\n")
-#
+#открытие файлов на чтение
+if os.path.exists('../traffic_money.json'):  # проверка наличия файла
+    with open('../traffic_money.json', 'r') as file_read:
+#файл всех транзакций открывается на чтение и передает данные в traffic_money
+        traffic_money = json.load(file_read)
+        print(*traffic_money, sep="\n")
+
 # if os.path.exists('balance.txt'):  # проверка наличия файла
 #     with open('balance.txt', 'r') as file_read:  # файл баланса, открывается на чтение и передает данные в balance_only
 #         balance_only = [int(file_read.read())]
 #
 # if os.path.exists('../buys.txt'):  # проверка наличия файла
-#     with open('../buys.txt', 'r',
-#               encoding='utf-8') as file_read:  # файл buys, открывается на чтение и передает данные в buys_only
+#     with open('../buys.txt', 'r',  encoding='utf-8') as file_read:
+# файл buys, открывается на чтение и передает данные в buys_only
 #         for buy in file_read:
 #             buys_only.append(buy.replace('\n', ' '))
 #             # print(*buys_only, sep="\n")
 
 
 # все функции
-
 def separator(symbol, count):
     """разделитель
     """
     return (symbol * count)
+
 
 def balance():
     """
@@ -43,11 +39,14 @@ def balance():
     :param balance_only:
     :return:
     """
-    put_money = [ el[2] for el in traffic_money if el[0] == 'Поступление']  # поступление денег, кортеж из даты и суммы
-    withdrawal_money = [el[2] for el in traffic_money if el[0] == 'Снятие' or 'Покупка']  # снятие средств
+    # поступление денег, кортеж из даты и суммы
+    put_money = [el[2] for el in traffic_money if el[0] == 'Поступление']
+    # снятие средств
+    withdrawal_money = [el[2] for el in traffic_money if (el[0] == 'Снятие') or (el[0] =='Покупка')]
 
     balance = sum(put_money) - sum(withdrawal_money)
     return balance
+
 
 def put_cash():
     """
@@ -57,6 +56,7 @@ def put_cash():
     amount_plus = int(input('Введите сумму для пополнения: '))
     # добавляет в traffic_money кортеж из 3 элементов
     traffic_money.append(('Поступление', data, amount_plus))
+
 
 def removal_cash():
     """
@@ -72,13 +72,12 @@ def buy():
     функция покупки кортеж из 3 элементов
     :return: ничего не  возвращает
     """
-    #Ввод данных
+    # Ввод данных
     product_name = input('Введите название продукта: ')
     amount_minus = int(input('Введите сумму покупки: '))
 
-    # withdrawal_money.append(('Покупка', data,  amount_minus, product_name))
-    # buys_only.append(('Покупка', data,  amount_minus, product_name))
-    traffic_money.append(('Покупка', data,  amount_minus, product_name))
+    traffic_money.append(('Покупка', data, amount_minus, product_name))
+
 
 def history_buys():
     """
@@ -86,6 +85,8 @@ def history_buys():
     :param buys_only:
     :return:
     """
+    buys_only= [el[2] for el in traffic_money if el[0] == 'Покупка']
+
     n = 0
     print('История покупок:')
     for el in buys_only:
@@ -103,6 +104,7 @@ def history_only():  # функция истории транзакций
         if len(el) == 4:
             print(f'      {el[0]}: {el[1]}, {el[3]}, -  {el[3]}УЕ')
     input('\nНажмите Enter чтобы продолжить ')
+
 
 while True:
     print(separator('*', 20))
@@ -139,13 +141,8 @@ while True:
         history_buys()  # вывод детализации покупок
 
     elif choice == '6':
-        with open('../traffic_money.json', 'w') as f:  # содержит все транзакции
-            json.dump(traffic_money, f)
-        with open('balance.txt', 'w', encoding='utf-8') as file_write:  # содержит баланс
-            file_write.write(str(balance(balance_only)))
-        with open('../buys.txt', 'w', encoding='utf-8') as file_write:  # содержит все покупки
-            for buy in buys_only:
-                file_write.write(f'{buy}\n')
+        with open('../traffic_money.json', 'w', encoding='utf-8') as file_write:  # содержит все транзакции
+            json.dump(traffic_money, file_write)
         break
     else:
         print('Неверный пункт меню')
