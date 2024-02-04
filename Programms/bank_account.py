@@ -9,21 +9,9 @@ traffic_money = []  # общий список
 
 #открытие файлов на чтение
 if os.path.exists('../traffic_money.json'):  # проверка наличия файла
-    with open('../traffic_money.json', 'r') as file_read:
+    with open('../traffic_money.json', 'r', encoding='utf-8') as file_read:
 #файл всех транзакций открывается на чтение и передает данные в traffic_money
         traffic_money = json.load(file_read)
-        print(*traffic_money, sep="\n")
-
-# if os.path.exists('balance.txt'):  # проверка наличия файла
-#     with open('balance.txt', 'r') as file_read:  # файл баланса, открывается на чтение и передает данные в balance_only
-#         balance_only = [int(file_read.read())]
-#
-# if os.path.exists('../buys.txt'):  # проверка наличия файла
-#     with open('../buys.txt', 'r',  encoding='utf-8') as file_read:
-# файл buys, открывается на чтение и передает данные в buys_only
-#         for buy in file_read:
-#             buys_only.append(buy.replace('\n', ' '))
-#             # print(*buys_only, sep="\n")
 
 
 # все функции
@@ -107,13 +95,13 @@ def history_only():  # функция истории транзакций
 
 
 while True:
-    print(separator('*', 20))
+    print(separator('*', 25))
     data = (datetime.date.today().strftime("%d.%m.%Y"))  # печать текущей даты
     print("Сегодня", data)
-    print(separator('*', 20))
+    print(separator('*', 25))
     print("Балланс счета: ", balance())  # начальное состояние счета
 
-    print(separator('*', 20))
+    print(separator('*', 25))
     print('Меню: ')
     print('1. пополнение счета')
     print('2. покупка')
@@ -121,7 +109,7 @@ while True:
     print('4. история транзакций')
     print('5. история покупок')
     print('6. выход')
-    print(separator('*', 20))
+    print(separator('*', 25))
 
     choice = input('Выберите пункт меню: ')
 

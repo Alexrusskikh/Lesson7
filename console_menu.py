@@ -26,6 +26,7 @@ def select_objects_to_file():
         file_write.write(f'Files: \n')
         for file in only_files:
             file_write.write(f'    {file}\n')
+
         file_write.write(f'Directory: \n')
         for dir in only_dir:
             file_write.write(f'    {dir}\n')
