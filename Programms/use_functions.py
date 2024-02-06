@@ -59,8 +59,11 @@ def buy(traffic_money, data):
     """
     # Ввод данных
     product_name = input('Введите название продукта: ')
-    amount_minus = int(input('Введите сумму покупки: '))
-
+    try:
+        amount_minus = int(input('Введите сумму покупки: '))
+    except ValueError:
+        print('Вы ввели не число...')
+        amount_minus = int(input('Введите сумму покупки: '))
     traffic_money.append(('buy', data, amount_minus, product_name))
 
 
