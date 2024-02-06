@@ -1,98 +1,18 @@
-# импорт модулей
-import datetime
-import json
+# импорт функций из модуля Programms.use_functions
+
 import os
+from Programms.use_functions import separator, put_cash, buy, balance, history_buys, history_only, \
+    removal_cash, datetime, json
 
 # переменные для текущих данных
 traffic_money = []  # общий список в виде кортежей из 3 и 4 элементов
 
+# открытие файлов на чтение
 
-#открытие файлов на чтение
 if os.path.exists('../traffic_money.json'):  # проверка наличия файла
     with open('../traffic_money.json', 'r', encoding='utf-8') as file_read:
-#файл всех транзакций открывается на чтение и передает данные в traffic_money
+        # файл всех транзакций открывается на чтение и передает данные в traffic_money
         traffic_money = json.load(file_read)
-
-
-# все функции
-def separator(symbol, count):
-    """разделитель
-    """
-    return (symbol * count)
-
-
-def balance():
-    """
-    вычисляет в balance_only сумму всех элементов, получаем балланс  счета
-    :param balance_only:
-    :return:
-    """
-    # поступление денег, кортеж из даты и суммы
-    put_money = [el[2] for el in traffic_money if el[0] == 'put']
-    # снятие средств
-    withdrawal_money = [el[2] for el in traffic_money if (el[0] == 'removal') or (el[0] =='buy')]
-
-    balance = sum(put_money) - sum(withdrawal_money)
-    return balance
-
-
-def put_cash():
-    """
-    функция пополнения счета, запись кортежей из даты и суммы
-    :return: ничего не  возвращает
-    """
-    amount_plus = int(input('Введите сумму для пополнения: '))
-    # добавляет в traffic_money кортеж из 3 элементов
-    traffic_money.append(('put', data, amount_plus))
-
-
-def removal_cash():
-    """
-    функция снятия со счета
-    :return:  ничего не возвращает
-    """
-    amount_minus = int(input('Введите сумму для снятия: '))
-    traffic_money.append(('removal', data, amount_minus))
-
-
-def buy():
-    """
-    функция покупки кортеж из 3 элементов
-    :return: ничего не  возвращает
-    """
-    # Ввод данных
-    product_name = input('Введите название продукта: ')
-    amount_minus = int(input('Введите сумму покупки: '))
-
-    traffic_money.append(('buy', data, amount_minus, product_name))
-
-
-def history_buys():
-    """
-    функция истории покупок
-    :param buys_only:
-    :return:
-    """
-    buys_only = [el for el in traffic_money if el[0] == 'buy']
-    print(buys_only)
-    n = 0
-    print('История покупок:')
-    for buy in buys_only:
-        n += 1
-        # вывод истории покупок построчно
-        print(f'  {n}). Дата покупки: {buy[1]}. Наименование: {buy[3]}. Цена: {buy[2]} УЕ')
-    input('\nНажмите Enter чтобы продолжить ')
-
-
-def history_only():  # функция истории транзакций
-    print('История транзакций:')
-    for el in traffic_money:
-        if len(el) == 3:
-            print(f'      {el[0]}: {el[1]}, {el[2]} УЕ')  # перебор кортежей и вывод их элементов через ":"
-        if len(el) == 4:
-            print(f'      {el[0]}: {el[1]}, {el[3]}, -  {el[2]} УЕ')#('buy', data, amount_minus, product_name)
-    input('\nНажмите Enter чтобы продолжить ')
-
 
 while True:
     print(separator('*', 25))
@@ -103,6 +23,7 @@ while True:
     print("Время", time)
 
     print(separator('*', 25))
+
     print("Балланс счета: ", balance())  # начальное состояние счета
 
     print(separator('*', 25))
