@@ -1,17 +1,14 @@
 import datetime
 import json
 
-traffic_money = []
-# все функции
-data = (datetime.date.today().strftime("%d.%m.%Y"))  # печать текущей даты
-time = (datetime.datetime.now().time())
+
 def separator(symbol, count):
     """разделитель
     """
     return (symbol * count)
 
 
-def balance():
+def balance(traffic_money):
     """
     вычисляет в balance_only сумму всех элементов, получаем балланс  счета
     :param balance_only:
@@ -26,7 +23,7 @@ def balance():
     return balance
 
 
-def put_cash():
+def put_cash(traffic_money, data):
     """
     функция пополнения счета, запись кортежей из даты и суммы
     :return: ничего не  возвращает
@@ -41,7 +38,7 @@ def put_cash():
     traffic_money.append(('put', data, amount_plus))
 
 
-def removal_cash():
+def removal_cash(traffic_money, data):
     """
     функция снятия со счета
     :return:  ничего не возвращает
@@ -55,7 +52,7 @@ def removal_cash():
     traffic_money.append(('removal', data, amount_minus))
 
 
-def buy():
+def buy(traffic_money, data):
     """
     функция покупки кортеж из 3 элементов
     :return: ничего не  возвращает
@@ -67,7 +64,7 @@ def buy():
     traffic_money.append(('buy', data, amount_minus, product_name))
 
 
-def history_buys():
+def history_buys(traffic_money):
     """
     функция истории покупок
     :param buys_only:
@@ -84,13 +81,14 @@ def history_buys():
     input('\nНажмите Enter чтобы продолжить ')
 
 
-def history_only():  # функция истории транзакций
+def history_only(traffic_money):  # функция истории транзакций
     print('История транзакций:')
     for el in traffic_money:
         if len(el) == 3:
             print(f'      {el[0]}: {el[1]}, {el[2]} УЕ')  # перебор кортежей и вывод их элементов через ":"
         if len(el) == 4:
             print(f'      {el[0]}: {el[1]}, {el[3]}, -  {el[2]} УЕ')  # ('buy', data, amount_minus, product_name)
+
     input('\nНажмите Enter чтобы продолжить ')
 
 
@@ -140,5 +138,3 @@ def my_money():
             break
         else:
             print('Неверный пункт меню')
-
-
