@@ -1,7 +1,7 @@
 import os
 import shutil
 from Programms.use_functions import separator
-
+from Programms.use_functions import my_money
 
 def add_separators(f):
     def inner(*args, **kwargs):
@@ -26,6 +26,7 @@ def select_objects_to_file():
         file_write.write(f'Files: \n')
         for file in only_files:
             file_write.write(f'    {file}\n')
+
         file_write.write(f'Directory: \n')
         for dir in only_dir:
             file_write.write(f'    {dir}\n')
@@ -141,7 +142,7 @@ def console_menu():
             from Programms import victory
 
         elif choice == '11':
-            from Programms import use_functions
+            my_money()
 
         elif choice == '12':
             print('Текущая папка: ', os.getcwd())

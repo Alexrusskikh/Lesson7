@@ -35,7 +35,6 @@ def history(traffic_money):  # функция истории транзакци�
 
 data = (datetime.date.today().strftime("%d/%m/%Y"))
 print(data)
-
 #if __name__ == '__main__':
     #print(separator('*', 21))
 
@@ -63,5 +62,5 @@ def my_money():
             print('Неверный пункт меню')
 
 
-if __name__ == '__main__':
-    my_money()
+#if __name__ == '__main__':
+    #my_money()
