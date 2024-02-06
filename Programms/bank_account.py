@@ -4,7 +4,7 @@ import json
 import os
 
 # переменные для текущих данных
-traffic_money = []  # общий список
+traffic_money = []  # общий список в виде кортежей из 3 и 4 элементов
 
 
 #открытие файлов на чтение
@@ -28,9 +28,9 @@ def balance():
     :return:
     """
     # поступление денег, кортеж из даты и суммы
-    put_money = [el[2] for el in traffic_money if el[0] == 'Поступление']
+    put_money = [el[2] for el in traffic_money if el[0] == 'put']
     # снятие средств
-    withdrawal_money = [el[2] for el in traffic_money if (el[0] == 'Снятие') or (el[0] =='Покупка')]
+    withdrawal_money = [el[2] for el in traffic_money if (el[0] == 'removal') or (el[0] =='buy')]
 
     balance = sum(put_money) - sum(withdrawal_money)
     return balance
@@ -43,7 +43,7 @@ def put_cash():
     """
     amount_plus = int(input('Введите сумму для пополнения: '))
     # добавляет в traffic_money кортеж из 3 элементов
-    traffic_money.append(('Поступление', data, amount_plus))
+    traffic_money.append(('put', data, amount_plus))
 
 
 def removal_cash():
@@ -52,7 +52,7 @@ def removal_cash():
     :return:  ничего не возвращает
     """
     amount_minus = int(input('Введите сумму для снятия: '))
-    traffic_money.append(('Снятие', data, amount_minus))
+    traffic_money.append(('removal', data, amount_minus))
 
 
 def buy():
@@ -64,7 +64,7 @@ def buy():
     product_name = input('Введите название продукта: ')
     amount_minus = int(input('Введите сумму покупки: '))
 
-    traffic_money.append(('Покупка', data, amount_minus, product_name))
+    traffic_money.append(('buy', data, amount_minus, product_name))
 
 
 def history_buys():
@@ -73,14 +73,14 @@ def history_buys():
     :param buys_only:
     :return:
     """
-    buys_only= [el[2] for el in traffic_money if el[0] == 'Покупка']
-
+    buys_only = [el for el in traffic_money if el[0] == 'buy']
+    print(buys_only)
     n = 0
     print('История покупок:')
-    for el in buys_only:
+    for buy in buys_only:
         n += 1
         # вывод истории покупок построчно
-        print(f'  {n}). Дата покупки: {el[1]}. Наименование: {el[3]}. Цена: {el[2]} УЕ')
+        print(f'  {n}). Дата покупки: {buy[1]}. Наименование: {buy[3]}. Цена: {buy[2]} УЕ')
     input('\nНажмите Enter чтобы продолжить ')
 
 
@@ -90,14 +90,18 @@ def history_only():  # функция истории транзакций
         if len(el) == 3:
             print(f'      {el[0]}: {el[1]}, {el[2]} УЕ')  # перебор кортежей и вывод их элементов через ":"
         if len(el) == 4:
-            print(f'      {el[0]}: {el[1]}, {el[3]}, -  {el[3]}УЕ')
+            print(f'      {el[0]}: {el[1]}, {el[3]}, -  {el[2]} УЕ')#('buy', data, amount_minus, product_name)
     input('\nНажмите Enter чтобы продолжить ')
 
 
 while True:
     print(separator('*', 25))
     data = (datetime.date.today().strftime("%d.%m.%Y"))  # печать текущей даты
+    time = (datetime.datetime.now().time())
+
     print("Сегодня", data)
+    print("Время", time)
+
     print(separator('*', 25))
     print("Балланс счета: ", balance())  # начальное состояние счета
 
