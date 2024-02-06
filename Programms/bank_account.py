@@ -1,5 +1,4 @@
 # импорт функций из модуля Programms.use_functions
-
 import os
 from Programms.use_functions import separator, put_cash, buy, balance, history_buys, history_only, \
     removal_cash, datetime, json
@@ -7,8 +6,7 @@ from Programms.use_functions import separator, put_cash, buy, balance, history_b
 # переменные для текущих данных
 traffic_money = []  # общий список в виде кортежей из 3 и 4 элементов
 
-# открытие файлов на чтение
-
+# открытие файа всех транзакций  на чтение и передача данных в traffic_money
 if os.path.exists('../traffic_money.json'):  # проверка наличия файла
     with open('../traffic_money.json', 'r', encoding='utf-8') as file_read:
         # файл всех транзакций открывается на чтение и передает данные в traffic_money
